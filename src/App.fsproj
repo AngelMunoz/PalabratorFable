@@ -3,6 +3,10 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
+        <Compile Include="Profiles.fs" />
+        <Compile Include="User.fs" />
+        <Compile Include="Playground.fs" />
+        <Compile Include="Admin.fs" />
         <Compile Include="App.fs" />
         <Compile Include="Main.fs" />
     </ItemGroup>
@@ -11,6 +15,8 @@
         <PackageReference Include="Fable.Elmish.HMR" Version="4.0.1" />
         <PackageReference Include="Fable.Elmish.React" Version="3.0.1" />
         <PackageReference Include="Feliz" Version="1.13.0" />
+        <PackageReference Include="Feliz.Router" Version="3.2.0" />
+        <PackageReference Include="Feliz.UseElmish" Version="1.4.1" />
         <PackageReference Include="Zanaptak.TypedCssClasses" Version="0.2.0" />
     </ItemGroup>
 </Project>

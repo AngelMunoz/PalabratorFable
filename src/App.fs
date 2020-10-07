@@ -2,44 +2,42 @@ module App
 
 open Feliz
 open Elmish
-open Fable.Core
-open Fable.Core.JsInterop
+open Feliz.Router
 
-[<Import("TsCounter", "./tsfiles/interop")>]
-let TsCounter' (state: {| counter: int |}): Fable.React.ReactElement = jsNative
+type Page =
+  | Profiles
+  | User of string
+  | Playground of user: string * playground: string
+  | Admin of string
+  | EditPlayground of string
 
-type State = { Count: int }
+type State = { Page: Page }
 
-type Msg =
-    | Increment
-    | Decrement
+type Msg = PageChanged of Page
 
-let init() = { Count = 0 }, Cmd.none
+let init () = { Page = Profiles }, Cmd.none
 
 let update (msg: Msg) (state: State) =
-    match msg with
-    | Increment -> { state with Count = state.Count + 1 }, Cmd.none
-    | Decrement -> { state with Count = state.Count - 1 }, Cmd.none
+  match msg with
+  | PageChanged page -> { state with Page = page }, Cmd.none
 
-let TsCounter (counter: int) =
-    Fable.React.FunctionComponent.Of TsCounter' {| counter = counter |}
+let parseUrl: list<string> -> Page =
+  function
+  | [] -> Profiles
+  | [ "user"; user ] -> User user
+  | [ "user"; user; "playground"; playground ] -> Playground(user, playground)
+  | [ "admin"; admin ] -> Admin admin
+  | [ "playground"; playground; "edit" ] -> EditPlayground playground
+  | _ -> Profiles
 
 let render (state: State) (dispatch: Msg -> unit) =
-    
-    Html.article [
-        Html.h1 [ Html.text "Hello Fable and Feliz from F#" ]
-        Html.div [
-            Html.button [
-                prop.onClick (fun _ -> dispatch Increment)
-                prop.text "Increment"
-            ]
+  let currentPage =
+    match state.Page with
+    | Profiles -> Profiles.view ()
+    | User user -> User.view ()
+    | Playground (user, playground) -> Playground.view ()
+    | Admin admin -> Admin.view ()
+    | EditPlayground playground -> Admin.editPlayground ()
 
-            Html.button [
-                prop.onClick (fun _ -> dispatch Decrement)
-                prop.text "Decrement"
-            ]
-
-            Html.h1 state.Count
-        ]
-        TsCounter state.Count
-    ]
+  React.router [ router.onUrlChanged (parseUrl >> PageChanged >> dispatch)
+                 router.children currentPage ]
