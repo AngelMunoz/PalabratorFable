@@ -1,43 +1,49 @@
 module App
 
+open Fable.Core
 open Feliz
 open Elmish
 open Feliz.Router
+open Types
 
 type Page =
-  | Profiles
-  | User of string
-  | Playground of user: string * playground: string
-  | Admin of string
-  | EditPlayground of string
+  | Playground of playground: string
+  | Admins
 
-type State = { Page: Page }
+type State = { Page: Page; Error: Option<string> }
 
-type Msg = PageChanged of Page
+type Msg =
+  | PageChanged of Page
+  | Error of exn
 
-let init () = { Page = Profiles }, Cmd.none
+let init () =
+  {
+    Page = Playground "default1"
+    Error = None
+  },
+  Cmd.none
 
 let update (msg: Msg) (state: State) =
   match msg with
   | PageChanged page -> { state with Page = page }, Cmd.none
+  | Error exn -> { state with Error = Some exn.Message }, Cmd.none
 
 let parseUrl: list<string> -> Page =
   function
-  | [] -> Profiles
-  | [ "user"; user ] -> User user
-  | [ "user"; user; "playground"; playground ] -> Playground(user, playground)
-  | [ "admin"; admin ] -> Admin admin
-  | [ "playground"; playground; "edit" ] -> EditPlayground playground
-  | _ -> Profiles
+  | []
+  | [ "playgrounds" ] -> Playground "default1"
+  | [ "playgrounds"; name ] -> Playground name
+  | [ "admins" ] -> Admins
+  | _ -> Playground "default1"
+
 
 let render (state: State) (dispatch: Msg -> unit) =
   let currentPage =
     match state.Page with
-    | Profiles -> Profiles.view ()
-    | User user -> User.view ()
-    | Playground (user, playground) -> Playground.view ()
-    | Admin admin -> Admin.view ()
-    | EditPlayground playground -> Admin.editPlayground ()
+    | Admins -> Admin.view ()
+    | Playground name -> Playground.view { _id = name }
 
-  React.router [ router.onUrlChanged (parseUrl >> PageChanged >> dispatch)
-                 router.children currentPage ]
+  React.router [
+    router.onUrlChanged (parseUrl >> PageChanged >> dispatch)
+    router.children currentPage
+  ]

@@ -23,7 +23,11 @@ fsharp_multiline_block_brackets_on_same_column=true
 fsharp_newline_between_type_definition_and_members=false
 fsharp_keep_if_then_in_same_line=false
 fsharp_max_elmish_width=15
-fsharp_single_argument_web_mode=false
+fsharp_single_argument_web_mode=true
 fsharp_align_function_signature_to_indentation=false
 fsharp_alternative_long_member_definitions=false
 fsharp_strict_mode=false
+
+[*.ts]
+indent_size=2
+max_line_length=100

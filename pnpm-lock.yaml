@@ -1,4 +1,5 @@
 dependencies:
+  nes.css: 2.3.0
   pouchdb-browser: 7.2.2
   react: 16.13.1
   react-dom: 16.13.1_react@16.13.1
@@ -4370,6 +4371,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
+  /nes.css/2.3.0:
+    dev: false
+    engines:
+      node: 10.x
+    resolution:
+      integrity: sha512-lCFZs9vj3f5RVdbvTL/kSxiYsOARwSeAdJaMNo+bCgmWOO9x8ay7QpT4yQVKHy3r5Dttzd0uqVdpt3fvvx6EpQ==
   /nice-try/1.0.5:
     dev: true
     resolution:
@@ -6497,6 +6504,7 @@ specifiers:
   html-webpack-plugin: ^3.2.0
   mini-css-extract-plugin: ^0.8.0
   mocha: ^7.2.0
+  nes.css: ^2.3.0
   pouchdb-browser: ^7.2.2
   react: ^16.9.0
   react-dom: ^16.9.0
