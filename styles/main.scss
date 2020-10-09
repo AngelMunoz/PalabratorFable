@@ -1,10 +1,108 @@
 @import "~nes.css/css/nes.css";
 
-
-html, body {
-    font-family: 'Press Start 2P', cursive;
-}
- @font-face {
+@font-face {
   font-family: 'Press Start 2P';
   src: url(./PressStart2P-Regular.ttf);
+}
+
+html, body {
+  font-family: 'Press Start 2P', cursive;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.playground-area {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: linear-gradient(264deg, #093c2f, #1c2752, #63574a, #09545b);
+  background-size: 800% 800%;
+
+  -webkit-animation: WaveBg 0s ease infinite;
+  -moz-animation: WaveBg 0s ease infinite;
+  -o-animation: WaveBg 0s ease infinite;
+  animation: WaveBg 0s ease infinite;
+}
+
+.pal-board {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%; 
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+.rotative {
+  animation: rotative 2s linear infinite;
+}
+
+.destroying {
+  animation: destroying 1s linear infinite;
+}
+
+
+@keyframes rotative {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes destroying {
+  0% {
+    transform: rotate(20deg);
+    background-color: aqua;
+  }
+
+  25% {
+    transform: rotate(-20deg);
+    background-color: aqua;
+  }
+
+  50% {
+    transform: rotate(360deg);
+    background-color: aqua;
+  }
+
+  85% {
+    transform: rotate(20deg);
+    background-color: black;
+  }
+
+  100% {
+    transform: rotate(-20deg);
+    background-color: black;
+  }
+}
+
+@-webkit-keyframes WaveBg {
+    0%{background-position:51% 0%}
+    50%{background-position:50% 100%}
+    100%{background-position:51% 0%}
+}
+@-moz-keyframes WaveBg {
+    0%{background-position:51% 0%}
+    50%{background-position:50% 100%}
+    100%{background-position:51% 0%}
+}
+@-o-keyframes WaveBg {
+    0%{background-position:51% 0%}
+    50%{background-position:50% 100%}
+    100%{background-position:51% 0%}
+}
+@keyframes WaveBg {
+    0%{background-position:51% 0%}
+    50%{background-position:50% 100%}
+    100%{background-position:51% 0%}
 }

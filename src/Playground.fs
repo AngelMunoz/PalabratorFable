@@ -71,14 +71,8 @@ let view =
       React.useElmish ((fun () -> init' props._id), update, [||])
 
     Html.article [
+      prop.classes ["playground-area"]
       prop.children [
-        PalBoard
-          (GenerateProps
-            {|
-              amount = None
-              shapes = None
-              sizes = None
-              colors = None
-            |})
+        PalBoard ()
       ]
     ])
