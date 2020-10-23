@@ -1,8 +1,10 @@
 {
     "private": true,
     "scripts": {
+        "prestart": "dotnet fable src",
         "start": "webpack-dev-server",
-        "build": "webpack",
+        "build": "pnpm run prestart && webpack",
+        "watch": "dotnet fable watch src --run webpack-dev-server",
         "test:live": "webpack-dev-server --config ./webpack.tests.js",
         "pretest": "fable-splitter --config splitter.tests.js",
         "test": "mocha ./tests-js"
